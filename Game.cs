@@ -36,7 +36,7 @@ public static unsafe class Game
 
     private static bool wasRecording = false;
 
-    private static readonly HashSet<uint> whitelistedContentTypes = [ 1, 2, 3, 4, 5, 9, 28, 29, 30 ]; // 22 Event, 26 Eureka, 27 Carnivale
+    private static readonly HashSet<uint> whitelistedContentTypes = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 19, 20, 21, 22, 23, 26, 27, 28, 29, 30, 31, 32, 35 ]; // 22 Event, 26 Eureka, 27 Carnivale
 
     private static readonly AsmPatch alwaysRecordPatch = new("24 06 3C 02 75 23 48", [ 0xEB, 0x1F ], true);
     private static readonly AsmPatch removeRecordReadyToastPatch = new("BA CB 07 00 00 48 8B CF E8", [ 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 ], true);
