@@ -36,8 +36,45 @@ public static unsafe class Game
 
     private static bool wasRecording = false;
 
-    private static readonly HashSet<uint> whitelistedContentTypes = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 19, 20, 21, 22, 23, 26, 27, 28, 29, 30, 31, 32, 35 ]; // 22 Event, 26 Eureka, 27 Carnivale
-
+    private static readonly HashSet<uint> whitelistedContentTypes = [
+     // 0,  // ""
+        1,  // "Duty Roulette"
+        2,  // "Dungeons"
+        3,  // "Guildhests"
+        4,  // "Trials"
+        5,  // "Raids"
+        6,  // "PvP"
+        7,  // "Quest Battles"
+        8,  // "FATEs"
+        9,  // "Treasure Hunt"
+     // 10, // "Levequests"
+     // 11, // "Grand Company"
+     // 12, // "Companions"
+     // 13, // "Tribal Quests",
+     // 14, // "Overall Completion"
+     // 15, // "Player Commendation"
+     // 16, // "Disciples of the Land"
+     // 17, // "Disciples of the Hand"
+     // 18, // "Retainer Ventures"
+        19, // "Gold Saucer"
+        20, // ""
+        21, // "Deep Dungeons"
+        22, // "Event"
+        23, // ""
+     // 24, // "Wondrous Tails"
+     // 25, // "Custom Deliveries"
+        26, // "Eureka"
+        27, // "Carnivale"
+        28, // "Ultimate Raids"
+        29, // ""
+        30, // "V&C Dungeon Finder"
+        31, // "Ocean Fishing"
+        32, // "Triple Triad"
+     // 33, // "The Hunt"
+     // 34, // "Fishing"
+        35  // "GATE"
+     // 36, // ""
+        ];
     private static readonly AsmPatch alwaysRecordPatch = new("24 06 3C 02 75 23 48", [ 0xEB, 0x1F ], true);
     private static readonly AsmPatch removeRecordReadyToastPatch = new("BA CB 07 00 00 48 8B CF E8", [ 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 ], true);
     private static readonly AsmPatch seIsABunchOfClownsPatch = new("F6 40 78 01 74 04 B0 01 EB 02 32 C0 40 84 FF", [ 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 ], true);
@@ -302,10 +339,10 @@ public static unsafe class Game
             }
 
             var list = (from file in directory.GetFiles().Concat(renamedDirectory?.GetFiles() ?? [])
-                    where file.Extension == ".dat"
-                    let replay = ReadReplayHeaderAndChapters(file.FullName)
-                    where replay is { header.IsValid: true }
-                    select (file, replay.Value)
+                        where file.Extension == ".dat"
+                        let replay = ReadReplayHeaderAndChapters(file.FullName)
+                        where replay is { header.IsValid: true }
+                        select (file, replay.Value)
                 ).ToList();
 
             replayList = list;
@@ -497,8 +534,7 @@ public static unsafe class Game
     {
         try
         {
-            Process.Start(new ProcessStartInfo
-            {
+            Process.Start(new ProcessStartInfo {
                 FileName = replayFolder,
                 UseShellExecute = true
             });
